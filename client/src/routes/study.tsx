@@ -30,14 +30,17 @@ function RouteComponent() {
   if (flashcards) {
     return (
       <div className="w-full h-[100vh] absolute top-0 left-0 flex items-center justify-center">
-        <div className="w-[600px] h-72  bg-stone-200 text-black rounded-lg flex flex-col items-center justify-center gap-4 relative">
-          <h1 className="uppercase text-2xl font-medium ">
+        <div className="w-[600px] h-72  bg-bg border border-secondary text-stone-200 rounded-lg flex flex-col items-center justify-center gap-4 relative">
+          <h1
+            className={`${revealed && "opacity-75"} uppercase text-2xl font-medium text-white`}
+          >
             {!revealPoints && flashcards[current].front}
           </h1>
           {!revealPoints && (
             <button
+              disabled={revealed}
               onClick={() => setRevealed(true)}
-              className="opacity-70 hover:opacity-100 transition-all cursor-pointer"
+              className="p-2 border border-secondary-darker rounded hover:bg-primary transition-all cursor-pointer"
             >
               Reveal Answer
             </button>
@@ -54,7 +57,7 @@ function RouteComponent() {
                     if (flashcards[current + 1]) setCurrent(current + 1);
                     else setRevealPoints(true);
                   }}
-                  className="border border-stone-400 px-4 py-1 rounded hover:bg-rose-500 hover:text-white transition-all cursor-pointer"
+                  className="border border-secondary-darker px-4 py-1 rounded hover:bg-primary hover:text-white transition-all cursor-pointer"
                 >
                   0 Point
                 </button>
@@ -65,7 +68,7 @@ function RouteComponent() {
                     if (flashcards[current + 1]) setCurrent(current + 1);
                     else setRevealPoints(true);
                   }}
-                  className="border border-stone-400 px-4 py-1 rounded hover:bg-green-500 hover:text-white transition-all cursor-pointer"
+                  className="border border-secondary-darker px-4 py-1 rounded hover:bg-green-500 hover:text-white transition-all cursor-pointer"
                 >
                   +1 Point
                 </button>
@@ -76,18 +79,18 @@ function RouteComponent() {
             <>
               <Link
                 to="/"
-                className="flex items-center opacity-70 hover:opacity-100 transition-all absolute left-6 top-6"
+                className="flex items-center hover:bg-primary transition-all absolute left-6 top-6 border border-secondary-darker px-3 py-1 rounded"
               >
                 <span className="text-xl">
                   <IoIosArrowRoundBack />
                 </span>
                 <h1>Home</h1>
               </Link>
-              <h1 className="text-2xl">
+              <h1 className="text-2xl text-primary">
                 Result: {points}/{flashcards.length}
               </h1>
               <button
-                className="opacity-70 hover:opacity-100 transition-all cursor-pointer"
+                className="hover:bg-primary transition-all cursor-pointer border px-3 py-1 rounded border-secondary-darker"
                 onClick={() => {
                   window.location.reload();
                 }}
@@ -99,5 +102,7 @@ function RouteComponent() {
         </div>
       </div>
     );
-  } else return <h1>Loading...</h1>;
+  } else {
+    return <h1>Loading...</h1>;
+  }
 }
